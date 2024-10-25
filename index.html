@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Summary</title>
+</head>
+<body>
+    <h1>Daily Weather Summary</h1>
+    <div id="weather-summary"></div>
+
+    <script>
+        fetch('/api/weather-summary')
+            .then(response => response.json())
+            .then(data => {
+                const summaryDiv = document.getElementById('weather-summary');
+                summaryDiv.innerHTML = '<ul>' + data.map(item => {
+                    return `<li>${item[0]}: Avg Temp: ${item[1].toFixed(2)}°C, Max Temp: ${item[2]}°C, Min Temp: ${item[3]}°C, Condition: ${item[4]}</li>`;
+                }).join('') + '</ul>';
+            });
+    </script>
+</body>
+</html>
